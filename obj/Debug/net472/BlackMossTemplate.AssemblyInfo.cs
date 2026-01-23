@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlackMossTemplate")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af27ac01ffdb4842fabdeeb5d08d7e6e82a1f369")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ef2f678c05f19eb59788823f824f57992ac7ed8")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlackMossTemplate")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlackMossTemplate")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

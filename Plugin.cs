@@ -1,16 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using MonoMod.RuntimeDetour;
-using UnityEngine;
 
-namespace ModNamespace
+namespace BlackMossTemplate
 {
-    [BepInPlugin("blackmoss.template", "BlackMossTemplate", "0.0.0")]
+    [BepInPlugin("blackmoss.template", "BlackMossTemplate", "114514.1919.810")]
     public class Plugin : BaseUnityPlugin
     {
         internal static new ManualLogSource Logger;
