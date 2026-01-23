@@ -13,6 +13,8 @@
 		</RestoreAdditionalProjectSources>
     <RootNamespace>BlackMossTemplate</RootNamespace>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <PackageProjectUrl>https://github.com/Black-Moss/BlackMossTemplate</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Black-Moss/BlackMossTemplate</RepositoryUrl>
   </PropertyGroup>
 
   <Import Project="../vars.targets" />
