@@ -38,7 +38,7 @@ __这个指南适用于 JetBrains Rider，我不喜欢 Visual Studio，所以不
 
 ## Rider:
 
-直接右键 [StartGame.ps1](StartGame.ps1) 选择`运行 'StartGame.ps1'`，然后运行窗口的窗口会显示一堆报错，这个时候再点击Rider编辑器右上角构建按钮旁边刚刚出现的 `StartGame.ps1` 按钮，选择`编辑配置...`，`Script arguments` 填写你的游戏目录和模组命名空间，按下面的`执行前`旁边的加号，选`构建解决方案`，确定之后就可以了。
+直接右键 [StartGame.ps1](StartGame.ps1) 选择`运行 'StartGame.ps1'`，然后运行窗口的窗口会显示一堆报错，这个时候再点击Rider编辑器右上角构建按钮旁边刚刚出现的 `StartGame.ps1` 按钮，选择`编辑配置...`，`Script arguments:` 填写你的游戏目录和模组命名空间，`Command parameters` 填写 `-ExecutionPolicy Bypass`，按下面的`执行前`旁边的加号，选`构建解决方案`，确定之后就可以了。
 
 之后每次按下构建旁边的绿三角按钮，就会自动把模组的dll文件复制到游戏目录下的BepInEx插件目录中并自动运行游戏，并且你还能在运行窗口中查看BepInEx的运行日志。
 

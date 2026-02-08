@@ -38,7 +38,9 @@ Of course, you can also use Rider/Visual Studio to run it, which is more conveni
 
 ## Rider:
 
-Right-click [StartGame.ps1](StartGame.ps1) and select `Run 'StartGame.ps1'`. The run window will show a bunch of errors at this point. Then click the `StartGame.ps1` button that just appeared next to the build button in the top-right corner of the Rider editor, select `Edit Configurations...`, fill in `Script arguments:` with your game directory and mod namespace, click the plus sign next to `Before launch`, choose `Build Solution`, and confirm.
+## Rider:
+
+Right-click [StartGame.ps1](StartGame.ps1) and select `Run 'StartGame.ps1'`. The run window will show a bunch of errors at this point. Then click the [StartGame.ps1](StartGame.ps1) button that just appeared next to the build button in the top-right corner of the Rider editor, select `Edit Configurations...`, fill in `Script arguments:` with your game directory and mod namespace, set `Command parameters` to `-ExecutionPolicy Bypass`, click the plus sign next to `Before launch`, choose `Build Solution`, and confirm.
 
 After that, every time you press the green triangle button next to the build button, the mod's DLL file will automatically be copied to the BepInEx plugin directory under the game directory, the game will start automatically, and you can view the BepInEx runtime logs in the run window.
 
