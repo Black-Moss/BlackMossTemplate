@@ -106,10 +106,12 @@ try {
     Interval
     Write-ColoredMessage "Game process exited." Red
 }
+
 catch {
     Write-Error "Failed to start the game process: $_"
     exit 1
 }
+
 finally {
     # 如果游戏进程仍在运行，则终止它
     if ($gameProcess -and !$gameProcess.HasExited) {
