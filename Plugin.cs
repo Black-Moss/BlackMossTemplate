@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace BlackMossTemplate
 {
-    [BepInPlugin("blackmoss.template", "Black Moss Template", "114514.1919.810")]
+    [BepInPlugin("blackmoss.template", "Black_Moss Template", "0.0.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static new ManualLogSource Logger;
