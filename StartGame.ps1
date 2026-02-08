@@ -1,6 +1,6 @@
 ﻿param(
     [string]$GamePath, # 游戏路径
-    [string]$ProjectPath = $PSScriptRoot # 项目目录
+    [string]$ModNamespace # 模组命名空间
 )
 
 # 设置输出编码为UTF-8
@@ -11,15 +11,15 @@ $timestamp = Get-Date -Format "yyyy-MM-dd_HHmmss"
 
 # 各种路径
 $GamePath = [System.IO.Path]::GetFullPath($GamePath) # 游戏路径
-$ProjectPath = [System.IO.Path]::GetFullPath($ProjectPath) # 项目目录
-$BepInExPath = [System.IO.Path]::Combine($GamePath, "BepInEx") # BepInEx 路径
-$bepInExLogPath = [System.IO.Path]::Combine($BepInExPath, "LogOutput.log") # BepInEx 日志路径
+$bepInExPath = [System.IO.Path]::Combine($GamePath, "BepInEx")
 
-# 获取游戏可执行文件路径
-$GameExecutable = [System.IO.Path]::Combine($GamePath, "CasualtiesUnknown.exe") # 游戏可执行文件路径
+# 各种文件
+$bepInExLog = [System.IO.Path]::Combine($bepInExPath, "LogOutput.log") # BepInEx 日志
+$GameExecutable = [System.IO.Path]::Combine($GamePath, "CasualtiesUnknown.exe") # 游戏文件
+$ModDll = [System.IO.Path]::Combine($PSScriptRoot, "bin/Debug/net472", "$ModNamespace.dll")
 
 # 日志目标路径
-$logDestination = [System.IO.Path]::Combine($ProjectPath, "logs", "$timestamp.log") # 日志目标路径
+$logDestination = [System.IO.Path]::Combine($PSScriptRoot, "logs", "$timestamp.log") # 日志目标路径
 
 # 检查游戏路径是否有效
 if (-not (Test-Path $GamePath -PathType Container)) {
@@ -28,7 +28,7 @@ if (-not (Test-Path $GamePath -PathType Container)) {
 }
 
 # 确保目标目录存在
-$logsFolder = [System.IO.Path]::Combine($ProjectPath, "logs")
+$logsFolder = [System.IO.Path]::Combine($PSScriptRoot, "logs")
 if (-not (Test-Path $logsFolder)) {
     New-Item -ItemType Directory -Path $logsFolder -Force
 }
@@ -44,10 +44,10 @@ function Write-ColoredMessage {
 
 # 定义日志复制函数
 function Copy-BepInExLog {
-    if (Test-Path $bepInExLogPath) {
+    if (Test-Path $bepInExLog) {
         try {
             Write-ColoredMessage "Copying BepInEx logs to ""$logDestination""." Cyan
-            Copy-Item $bepInExLogPath $logDestination -Force
+            Copy-Item $bepInExLog $logDestination -Force
         }
         catch {
             Write-Warning "Failed to copy BepInEx logs: $_"
@@ -61,17 +61,27 @@ function Interval {
 }
 
 # 清空 BepInEx 日志文件
-if (Test-Path $bepInExLogPath) {
-    Clear-Content $bepInExLogPath
+if (Test-Path $bepInExLog) {
+    Clear-Content $bepInExLog
     Write-ColoredMessage "Cleared previous BepInEx logs." Cyan
 }
 
 # 输出启动信息
-Write-ColoredMessage "Start game now..." Green
 Write-ColoredMessage "Game path: $GamePath" Yellow
+Write-ColoredMessage "Mod namespace: $ModNamespace" Yellow 
+
+# 复制dll文件到游戏目录
+try {
+    Write-ColoredMessage "Copying Mod dll file to ""$bepInExPath\plugins\$ModNamespace.dll""." Cyan
+    Copy-Item $ModDll "$GamePath\BepInEx\plugins" -Force
+} 
+catch {
+    Write-Error "Failed to copy Mod dll file: $_"
+    exit 1
+}
 
 # 启动游戏进程并重定向输出
-try {    
+try {
     $gameProcess = Start-Process -FilePath $GameExecutable `
         -WorkingDirectory (Split-Path $GameExecutable -Parent) `
         -PassThru -NoNewWindow
@@ -82,8 +92,8 @@ try {
     # 定期轮询日志
     $lastReadPosition = 0
     while (!$gameProcess.HasExited) {
-        if (Test-Path $bepInExLogPath) {
-            $content = Get-Content $bepInExLogPath -ReadCount 0
+        if (Test-Path $bepInExLog) {
+            $content = Get-Content $bepInExLog -ReadCount 0
             for ($i = $lastReadPosition; $i -lt $content.Count; $i++) {
                 Write-ColoredMessage $content[$i] Magenta
             }
