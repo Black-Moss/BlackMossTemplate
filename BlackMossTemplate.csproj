@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="logs\" />
     <Folder Include="obj\" />
   </ItemGroup>
 
