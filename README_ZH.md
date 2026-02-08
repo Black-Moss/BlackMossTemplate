@@ -1,5 +1,8 @@
-﻿# BlackMossTemplate
+基于[05126619z/ScavTemplate](https://github.com/05126619z/ScavTemplate).
+
 [English Guide](README.md)
+ 
+# BlackMossTemplate
 
 一个用于开发 `Casualties Unknown` 的模组模板。
 
